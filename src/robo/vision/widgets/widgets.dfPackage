@@ -1,0 +1,98 @@
+package idcat3e959jnjbe959nb80;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@shapeType DependencyLink
+@__modelType link
+@__ref <oiref:design#Class#id1huu8e959jnjbe959n6xm.diagram:oiref><oihard>
+@automatic 
+*/
+class link {
+}/**
+@shapeType DependencyLink
+@__modelType link
+@__ref <oiref:design#Class#id3tpqye959jnjbe959nahl.diagram:oiref><oihard>
+@automatic 
+*/
+class link47 {
+}/**
+@shapeType DependencyLink
+@__modelType link
+@__ref <oiref:design#Class#id3nptte959jnjbe959n7kf.diagram:oiref><oihard>
+@automatic 
+*/
+class link48 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.ReadImage:oiref><oihard>
+@__modelType reference 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.Iconizer:oiref><oihard>
+@__modelType reference 
+*/
+class reference4 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.Contrast:oiref><oihard>
+@__modelType reference 
+*/
+class reference5 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.Magnifier:oiref><oihard>
+@__modelType reference 
+*/
+class reference6 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.XYPlot:oiref><oihard>
+@__modelType reference 
+*/
+class reference7 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.Panner:oiref><oihard>
+@__modelType reference 
+*/
+class reference8 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.ImageDisplay:oiref><oihard>
+@__modelType reference 
+*/
+class reference9 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.RenderableDisplay:oiref><oihard>
+@__modelType reference 
+*/
+class reference10 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.Colorbar:oiref><oihard>
+@__modelType reference 
+*/
+class reference11 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.TutorUtils:oiref><oihard>
+@__modelType reference 
+*/
+class reference12 {
+}/**
+@__ref <oiref:java#Class#robo.vision.widgets.FloatDocument:oiref><oihard>
+@__modelType reference 
+*/
+class reference13 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions 
+*/
+class __positions {
+}
