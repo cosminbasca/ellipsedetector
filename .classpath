@@ -2,8 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/JavaLib/Java Advanced Imaging 1.1.3/lib/jai_codec.jar"/>
-	<classpathentry kind="lib" path="D:/JavaLib/Java Advanced Imaging 1.1.3/lib/jai_core.jar"/>
-	<classpathentry kind="lib" path="D:/JavaLib/Java Advanced Imaging 1.1.3/lib/mlibwrapper_jai.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAI 1.1.3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
