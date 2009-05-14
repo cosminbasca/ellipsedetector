@@ -100,9 +100,7 @@ public class EllipseDescriptor
 		else
 			alfa = Math.tan(( v1.getY() - v2.getY() ) / ( v1.getX() - v2.getX() ));
 		
-		//System.out.println(alfa);
-		
-		return Math.abs(alfa);
+		return alfa;
 	}
 	
 	public double distance(EllipseDescriptor ed)
@@ -207,15 +205,15 @@ public class EllipseDescriptor
 	public String toString()
 	{
 		String str = "";
-		str += "["+"a: "	+ String.valueOf(a);
+		str += "<"+"a: "	+ String.valueOf(a);
 		str += " ,b: "		+ String.valueOf(b);
-		str += " \n,C: "	+ String.valueOf(center.toString());
-		str += " ,V1 : "	+ String.valueOf(v1.toString());
-		str += " ,V2 : "	+ String.valueOf(v2.toString());
-		str += " \n,Alfa: "	+ String.valueOf(this.getAlfa());
-		str += " ,Perim: "	+ String.valueOf(this.getPerimeter());
-		str += " ,Excen: "	+ String.valueOf(this.getExcentricity());
-		str += " ]";
+		str += " ,C: ("	+ center.getX()+","+center.getY()+")";
+		str += " ,V1 : ("	+ v1.getX()+","+v1.getY()+")";
+		str += " ,V2 : ("	+ v2.getX()+","+v2.getY()+")";
+		str += " ,Alfa: "	+ getAlfa();
+		str += " ,P: "	+ getPerimeter();
+		str += " ,Ex: "	+ getExcentricity();
+		str += " >";
 		return str;	
 	}
 }

@@ -35,12 +35,12 @@ class HoughEllipseDescriptor extends OperationDescriptorImpl implements Rendered
 
     private static final int numSources = 1;
 
-    private static final String[] paramNames = { "MinMajorAxis", "MaxMajorAxis" ,"MinMinorAxis", "MaxMinorAxis" , "MinVotes" , "IdleStopSearch" };
+    private static final String[] paramNames = { "MinMajorAxis", "MaxMajorAxis" ,"MinMinorAxis", "MaxMinorAxis" , "MinVotes" , "IdleStopSearch", "MaxPairs" ,"Debug" };
 
     @SuppressWarnings("unchecked")
-	private static final Class[] paramClasses = { java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class ,java.lang.Integer.class };
+	private static final Class[] paramClasses = { java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class ,java.lang.Integer.class , java.lang.Float.class, Boolean.class};
 
-    private static final Object[] paramDefaults = { new Integer(100), new Integer(130), new Integer(50), new Integer(60), new Integer(180), new Integer(1000)};
+    private static final Object[] paramDefaults = { new Integer(100), new Integer(130), new Integer(50), new Integer(60), new Integer(180), new Integer(1000), new Float(0.5), new Boolean(true)};
 
 
     public HoughEllipseDescriptor()
@@ -61,7 +61,9 @@ class HoughEllipseDescriptor extends OperationDescriptorImpl implements Rendered
             			(Integer) pb.getObjectParameter(2), 
             			(Integer) pb.getObjectParameter(3), 
             			(Integer) pb.getObjectParameter(4), 
-            			(Integer) pb.getObjectParameter(5)
+            			(Integer) pb.getObjectParameter(5),
+            			(Float) pb.getObjectParameter(6),
+            			(Boolean) pb.getObjectParameter(7)
             			);
     }
 

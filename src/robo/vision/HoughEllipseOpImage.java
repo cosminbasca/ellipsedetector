@@ -11,6 +11,7 @@
  */
 package robo.vision;
 
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
@@ -36,6 +37,10 @@ class HoughEllipseOpImage  extends UntiledOpImage
 	private double  minB;	// minor axis
 	private double  maxB;
 	
+	private boolean debug;
+	
+	private float maxPairs;
+	
 	private int 	MIN_VOTES_TO_DETECT_ELLIPSE;
 	private int 	IDLE_STOP_SEARCH;
 	
@@ -45,13 +50,15 @@ class HoughEllipseOpImage  extends UntiledOpImage
 	//private int		quantizationBlockWidth;
 	//private int		quantizationBlockHeigth;
 	
-	public HoughEllipseOpImage(RenderedImage source, ImageLayout layout, Integer minMajorAxis, Integer maxMajorAxis , Integer minMinorAxis ,Integer maxMinorAxis,Integer minVotes,Integer idleStop)
+	public HoughEllipseOpImage(RenderedImage source, ImageLayout layout, Integer minMajorAxis, Integer maxMajorAxis , Integer minMinorAxis ,Integer maxMinorAxis,Integer minVotes,Integer idleStop, Float maxPairs, Boolean debug)
     {
     	super(source, null, layout);                
         this.minA = (double)minMajorAxis.intValue();
         this.minB = (double)minMinorAxis.intValue();
         this.maxA = (double)maxMajorAxis.intValue();
         this.maxB = (double)maxMinorAxis.intValue();
+        this.maxPairs = maxPairs;
+        this.debug = debug;
         this.MIN_VOTES_TO_DETECT_ELLIPSE = minVotes.intValue();
         this.IDLE_STOP_SEARCH = idleStop.intValue();
         this.ellipses 	= new ArrayList<EllipseDescriptor>();
@@ -63,7 +70,7 @@ class HoughEllipseOpImage  extends UntiledOpImage
     	Raster 			src  = srcarr[0];
     	// get edge points
     	double edge[][];
-    	Vector<Point> _edge  = new Vector<Point>();
+    	ArrayList<Point> _edge  = new ArrayList<Point>();
     	int width  		= src.getWidth();
     	int heigth 		= src.getHeight();
     	    	
@@ -74,7 +81,7 @@ class HoughEllipseOpImage  extends UntiledOpImage
     			int sample = src.getSample(i,j,0);
     			if(sample==RoboRaster.WHITE)
     			//if(sample>=100)
-    				_edge.addElement(new Point(i,j));
+    				_edge.add(new Point(i,j));
     		}
     	}
     	
@@ -85,8 +92,8 @@ class HoughEllipseOpImage  extends UntiledOpImage
     	edge = new double[_edge.size()][3];
     	for(int i=0;i<_edge.size();i++)
     	{
-    		edge[i][0] = ((Point)_edge.elementAt(i)).x;
-    		edge[i][1] = ((Point)_edge.elementAt(i)).y;
+    		edge[i][0] = ((Point)_edge.get(i)).x;
+    		edge[i][1] = ((Point)_edge.get(i)).y;
     		edge[i][2] = 1;									// punct activ
     	}
     	
@@ -95,9 +102,12 @@ class HoughEllipseOpImage  extends UntiledOpImage
     	
         // RHT	-	Randomized Hough Transform
         // max nr of pairs about 50 % of img        
-        int maxPairs 		= (int)((double)edgePoints * 0.5) - (int)((double)edgePoints * 0.15);
-        if(edgePoints > 3000)
-        	maxPairs = 1300;
+    	if(this.debug) {
+    		System.out.println("Max Points	: "+this.maxPairs+" %");
+    	}
+        int maxPairs 		= (int)((double)edgePoints * this.maxPairs);// - (int)((double)edgePoints * 0.15);
+        //if(edgePoints > 3000)
+        //	maxPairs = 1300;
         	
         int currentPair 	= 0;
         
@@ -105,10 +115,11 @@ class HoughEllipseOpImage  extends UntiledOpImage
      	accumulator 		= new int[accLength];
      	clear(accumulator);
      	
-     	System.out.println("Pairs     : "+maxPairs);
-        System.out.println("Searching : "+edgePoints);
-        System.out.println("Acc len   : "+accLength);
-        
+     	if(this.debug) {
+     		System.out.println("Searching   	: "+maxPairs);
+     		System.out.println("Total 		: "+edgePoints);
+     		System.out.println("Acc len   	: "+accLength);
+     	}
         // for speed - // fara prea multe alocari de mem
         int 	p1 		= 0;
         int 	p2 		= 0;
@@ -232,8 +243,9 @@ class HoughEllipseOpImage  extends UntiledOpImage
         //******************************************************************************
         
         // get Clustered Ellipses
-        System.out.println("--------------------------------------------------------------------------------");
-        System.out.println("ALL ELLIPSES > "+this.ellipses.size()+" ");
+        if(this.debug) {
+        	System.out.println("Total Ellipses	: "+this.ellipses.size()+" ");
+        }
 		/*
 		for(int i=0;i<this.ellipses.size();i++)
 		{
@@ -251,7 +263,9 @@ class HoughEllipseOpImage  extends UntiledOpImage
         //	ellipses.addElement(centroids.elementAt(i));
         
     	// draw ellipse center
-    	System.out.println("### DETECTED "+this.ellipses.size()+" ellipses");
+        if(this.debug) {
+        	System.out.println("Ellipses	: "+this.ellipses.size()+" ellipses");
+        }
 		for(int i=0;i<this.ellipses.size();i++)
 		{
 			EllipseDescriptor desc = ellipses.get(i);
@@ -261,7 +275,9 @@ class HoughEllipseOpImage  extends UntiledOpImage
 			
 			drawPixel(1,(int)desc.getVertex1().getX(),(int)desc.getVertex1().getY(),dst,5);
 			drawPixel(1,(int)desc.getVertex2().getX(),(int)desc.getVertex2().getY(),dst,5);
-			System.out.println(desc.toString());
+			if(this.debug) {
+				System.out.println(desc.toString());
+			}
 		}
 	}
    
